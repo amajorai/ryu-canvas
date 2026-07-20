@@ -1,0 +1,25 @@
+{
+  "name": "@ryu/canvas-app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The Ryu Canvas app: a ComfyUI / ElevenLabs-Flows-style node board (image/video/chat/tts/stt/upload/note) shipped as a full-page Companion (Path B, ui_format:\"html\"). Persists as a Space document via spaces:docs; runs nodes through the window.ryu media/agent bridge; built to one self-contained HTML via vite-plugin-singlefile.",
+  "scripts": {
+    "build": "vite build",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@xyflow/react": "^12.10.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@ryu/config": "workspace:*",
+    "@types/react": "^19.2.10",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.2.0",
+    "typescript": "^5",
+    "vite": "^7.3.1",
+    "vite-plugin-singlefile": "^2.3.0"
+  }
+}
