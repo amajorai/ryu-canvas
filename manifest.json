@@ -1,0 +1,82 @@
+{
+  "id": "com.ryu.canvas",
+  "name": "Canvas",
+  "version": "1.0.0",
+  "runnables": [
+    {
+      "id": "canvas-companion",
+      "name": "Canvas",
+      "kind": "companion",
+      "config": {
+        "label": "Canvas",
+        "ui_entry": "./dist/index.html",
+        "ui_format": "html",
+        "csp": {
+          "connect_domains": [
+            "https://api.iconify.design",
+            "https://api.svgl.app",
+            "https://svgl.app"
+          ],
+          "resource_domains": [
+            "https://api.iconify.design",
+            "https://api.svgl.app",
+            "https://svgl.app"
+          ]
+        }
+      }
+    }
+  ],
+  "requires": {
+    "apps": [
+      {
+        "id": "com.ryu.spaces"
+      }
+    ],
+    "grants": ["spaces:docs"]
+  },
+  "permission_grants": [
+    "spaces:docs",
+    "core:list_agents",
+    "media:generate",
+    "media:transcribe",
+    "hook:run-agent",
+    "hook:side-model"
+  ],
+  "companion": {
+    "label": "Canvas",
+    "icon": "ai-image"
+  },
+  "contributes": {
+    "sidebar_sections": [
+      {
+        "id": "canvas",
+        "title": "Canvas",
+        "icon": "ai-image",
+        "spec": {
+          "source": {
+            "http": { "method": "GET", "path": "/api/apps/com.ryu.canvas/docs" },
+            "items": "documents"
+          },
+          "itemTarget": "/spaces/{{item.space_id}}/app/com.ryu.canvas/{{item.id}}",
+          "create": {
+            "http": { "method": "POST", "path": "/api/apps/com.ryu.canvas/docs" },
+            "targetFrom": "id",
+            "label": "New canvas"
+          },
+          "itemActions": [
+            {
+              "id": "delete",
+              "label": "Delete",
+              "icon": "lucide:trash-2",
+              "style": "danger",
+              "http": {
+                "method": "DELETE",
+                "path": "/api/spaces/{{item.space_id}}/documents/{{item.id}}"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
