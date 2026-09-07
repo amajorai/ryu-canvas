@@ -1,0 +1,75 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./icon-dark.png" />
+    <img src="./icon-light.png" alt="Canvas" width="144" />
+  </picture>
+</p>
+
+<div align="center">
+
+# Canvas
+
+</div>
+
+A ComfyUI / ElevenLabs-Flows-style node board: wire up image / video / chat / tts / stt / upload / note nodes through Ryu's media and agent bridges; each board persists as a Space document.
+
+> **The public home of `ryu-canvas`.** Source, builds, and releases live here —
+> binaries for every platform are attached to each release.
+>
+> This tree is generated from the Ryu monorepo, so commits pushed here
+> directly are replaced on the next sync. **Pull requests are welcome** —
+> open them here and they are ported into the monorepo, then flow back out.
+> Ryu as a whole: https://github.com/amajorai/ryu
+
+## Install
+
+**App:** [Install](ryu://apps/@ryu/canvas) (opens the Ryu desktop app and asks you to confirm)
+
+**CLI:**
+
+```bash
+ryu apps add @ryu/canvas
+```
+
+## Source & build
+
+This is the **source of record** for the app UI. It imports Ryu's private
+`@ryu/ui` design system, so it does **not** build standalone outside the
+monorepo — it **builds inside the amajorai/ryu monorepo workspace**.
+The **shipped bundle below is the built artifact**: a prebuilt single-file
+companion bundle is included at [`dist/canvas.ui.html`](./dist/canvas.ui.html) —
+the runnable UI Ryu loads for this app.
+
+## License
+
+Apache-2.0 — see [LICENSE](./LICENSE).
+
+## Parts
+
+- **`ui/` — companion (`@ryu/canvas-app`).** A sandboxed full-page Companion
+  (Path B, `ui_format: "html"`), a React Flow (`@xyflow/react`) canvas built to one
+  self-contained `dist/index.html` via `vite-plugin-singlefile`. No backend crate
+  of its own — it persists via `spaces:docs` and runs nodes through the
+  `window.ryu` media/agent bridge, never raw `fetch`.
+
+## Manifest (`manifest.json`)
+
+- **id** `@ryu/canvas` · one `companion` runnable (`Canvas`, icon `ai-image`).
+- **Requires:** app `@ryu/spaces` + grant `spaces:docs` (a hard dependency —
+  boards are stored as Space documents).
+- **Grants:** `spaces:docs` (persistence), `core:list_agents` (pick a chat node's
+  agent), `media:generate` + `media:transcribe` (image/video/tts + stt nodes),
+  `hook:run-agent` + `hook:side-model` (chat / side-model nodes).
+- **CSP:** the sandbox is opened to `api.iconify.design` / `api.svgl.app` /
+  `svgl.app` for icon/logo fetches (`connect_domains` + `resource_domains`).
+- No sidecar: all node execution rides Core's existing media + agent hooks.
+
+## Surface
+
+Registers as the **Canvas** companion in the desktop app store / launcher.
+
+## Swap seam
+
+Node kinds are the extensible unit; each maps to a bridge capability
+(`media:*`, `hook:*`), none hardcoded to a provider. Boards live in Spaces, so a
+different Spaces backend behind `spaces:docs` backs persistence unchanged.
