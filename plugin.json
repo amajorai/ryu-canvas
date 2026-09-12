@@ -1,0 +1,19 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ryu.canvas",
+  "version": "0.1.14",
+  "description": "A node board for generative media: wire up image, video, chat, text-to-speech, speech-to-text, upload, and note nodes, then run the graph through Ryu's media and agent bridges. Each board persists as a Space document, so it stays editable, shareable, and searchable.",
+  "author": {
+    "name": "Ryu",
+    "url": "https://ryuhq.com"
+  },
+  "homepage": "https://github.com/amajorai/ryu-canvas",
+  "repository": "https://github.com/amajorai/ryu-canvas",
+  "keywords": ["canvas", "media", "nodes", "generative", "workflow"],
+  "extensions": {
+    "com.ryuhq.ryu": {
+      "id": "@ryu/canvas",
+      "displayName": "Canvas"
+    }
+  }
+}
